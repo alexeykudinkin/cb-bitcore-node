@@ -1,0 +1,30 @@
+{
+  "name": "cb-bitcore-node",
+  "description": "Common-blockchain interface for the Bitcore's Full Node",
+  "author": "Alexey Kudinkin <alexey.kudinkin@gmail.com>",
+  "version": "0.1.0dev",
+  "main": "./src/index.js",
+  "repository": "git://github.com/tradle/cb-bitcore-node.git",
+  "homepage": "https://github.com/tradle/cb-bitcore-node",
+  "bugs": {
+    "url": "https://github.com/tradle/cb-bitcore-node/issues"
+  },
+  "scripts": {
+    "test": "mocha --reporter list test"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@tradle/bitcoinjs-lib": "^1.5.7",
+    "async": "^0.9.0",
+    "superagent": "^1.2.0",
+    "throttleme": "^1.0.3"
+  },
+  "devDependencies": {
+    "cb-tester":  "^0.2.x",
+    "coveralls":  "^2.11.2",
+    "istanbul":   "^0.3.8",
+    "mocha":      "^2.2.0",
+    "mockery":    "^1.4.0"
+  }
+}
+

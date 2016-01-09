@@ -14,7 +14,15 @@ Addresses.prototype.summary = function (addresses, callback) {
   validateAddresses(addresses, function (err) {
     if (err) return callback(err);
 
-    utils.batchRequest(uri, addresses, callback)
+    utils.batchRequest(uri, addresses, function (err, result) {
+      if (err)
+        return callback(err, result);
+
+      if (Array.isArray(result) && result.length === 1)
+        callback(err, result[0]);
+      else
+        callback(err, result);
+    })
   })
 };
 
@@ -54,7 +62,7 @@ function validateAddresses(addresses, callback) {
   });
 
   if (invalidAddresses.length > 0) {
-    return callback(new Error("There are " + invalidAddresses.length + " invalid addresses: " + invalidAddresses.join(', ')))
+    return callback(new Error(invalidAddresses[0] + " is not a valid address"))
   }
 
   callback(null);

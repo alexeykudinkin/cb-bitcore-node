@@ -7,26 +7,15 @@ function btcToSatoshi(value) {
   return Math.round(1e8 * parseFloat(value))
 }
 
-function assertJSend(body) {
-  assert.notEqual(body.status, 'error', body.message || 'Invalid JSend response:' + JSON.stringify(body));
-  assert.notEqual(body.status, 'fail', body.data || 'Invalid JSend response: ' + JSON.stringify(body));
-
-  assert.equal(body.status, 'success', 'Unexpected JSend response: ' + body);
-  assert.notEqual(body.data, undefined, 'Unexpected JSend response: ' + body)
-}
-
 function handleJSend(callback) {
   return function(err, response) {
     if (err) return callback(err);
 
     var body = JSON.parse(response.text);
-    try {
-      assertJSend(body)
-    } catch (exception) {
-      return callback(exception)
-    }
-
-    callback(null, body.data)
+    if (!body)
+      callback(new Error("Retrieved response isn't correct JSON object: {" + response.text + "}"));
+    else
+      callback(null, body)
   }
 }
 
